@@ -24,9 +24,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        customGame = GameObject.Find("CustomGameSettings").GetComponent<CustomGame>();
+        try
+        {
+            customGame = GameObject.Find("CustomGameSettings").GetComponent<CustomGame>();
+        }
+        catch (System.Exception)
+        {
+            customGame = new CustomGame();
+        }
 
-        if(customGame.isCustom && customGame.customStartRound > 1)
+        if (customGame.isCustom && customGame.customStartRound > 1)
         {
             startRound = customGame.customStartRound;
         }

@@ -42,8 +42,15 @@ public class PlayerController : MonoBehaviour
     {
         input = new Inputs();
 
-        customGame = GameObject.Find("CustomGameSettings").GetComponent<CustomGame>();
-
+        try
+        {
+            customGame = GameObject.Find("CustomGameSettings").GetComponent<CustomGame>();
+        }
+        catch (System.Exception)
+        {
+            customGame = new CustomGame();
+        }
+        
         //input.InGame.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         input.InGame.Jump.performed += _ => Jump();
         input.InGame.Pause.performed += _ => PauseGame();

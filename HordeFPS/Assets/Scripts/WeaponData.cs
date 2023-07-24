@@ -73,6 +73,7 @@ public class WeaponData : MonoBehaviour
     private float fovAdjust;
 
     private bool isAiming = false;
+    bool isFiring = false;
 
     public bool IsEnabled
     {
@@ -84,10 +85,8 @@ public class WeaponData : MonoBehaviour
     {
         input = new Inputs();
 
-        if (fireMode == FireMode.SemiAuto)
-            input.InGame.Shoot.started += _ => Fire();
-        else if (fireMode == FireMode.FullAuto)
-            input.InGame.Shoot.performed += _ => Fire();
+        input.InGame.Shoot.started += _ => isFiring = true;
+        input.InGame.Shoot.canceled += _ => isFiring = false;
 
         input.InGame.Reload.performed += _ => StartCoroutine(StartReload());
 
@@ -154,6 +153,23 @@ public class WeaponData : MonoBehaviour
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fovAdjust, 0.5f);
         else
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, playerFOV, 0.5f);
+
+        if(isFiring)
+        {
+            switch (fireMode)
+            {
+                case FireMode.FullAuto:
+                    {
+                        StartCoroutine(Fire());
+                        break;
+                    }
+                case FireMode.SemiAuto:
+                {
+                        StartCoroutine(Fire());
+                        break;
+                }
+            }
+        }
     }
 
     void DrawHitRay()
@@ -171,6 +187,7 @@ public class WeaponData : MonoBehaviour
     IEnumerator DisableFire(float time = 0.3f)
     {
         isEnabled = false;
+        isFiring = false;
 
         yield return new WaitForSeconds(time);
         isEnabled = true;
@@ -183,42 +200,53 @@ public class WeaponData : MonoBehaviour
         return weaponLevel * damage;
     }
 
-    void Fire()
+    IEnumerator Fire(int repeats = 1)
     {
-        if (fireTimer < fireRate || !isEnabled || weaponManager.pauseFire || isReloading) return;
-
-        if(currentMag <= 0)
+        while(true)
         {
-            StartCoroutine(DisableFire());
+            if (fireTimer < 1 / fireRate || !isEnabled || weaponManager.pauseFire || isReloading) yield break;
 
-            shotsFired = magCapacity;
-            return;
-        }
+            for(int i = 0; i < repeats; i++)
+            {
+                if (currentMag <= 0)
+                {
+                    StartCoroutine(DisableFire());
 
-        RaycastHit hit;
+                    shotsFired = magCapacity;
+                    yield break;
+                }
+            }
 
-        for(int i =0; i < pellets; i++)
-        {
-            gunshotSfx.PlayOneShot(gunshotSfx.clip);
+            RaycastHit hit;
 
-            if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
+            if(gunshotSfx != null)
+                gunshotSfx.PlayOneShot(gunshotSfx.clip);
+
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range))
             {
                 ZombieAI_Nav zombie = hit.transform.GetComponent<ZombieAI_Nav>();
 
-                if(zombie)
+                if (zombie)
                 {
                     zombie.TakeDamage(GetWeaponDamage(), this.gameObject);
                 }
             }
+
+            currentMag--;
+
+            fireTimer = 0f;
+
+            GiveRecoil();
+
+            if(muzzleFlash != null)
+                muzzleFlash.Play();
+
+            if(fireMode != FireMode.FullAuto)
+            {
+                isFiring = false;
+                yield break;
+            }
         }
-
-        GiveRecoil();
-
-        muzzleFlash.Play();
-
-        currentMag--;
-
-        fireTimer = 0f;
     }
 
     void StartADS()

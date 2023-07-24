@@ -11,7 +11,8 @@
                     "id": "2d803f4a-e541-47f0-b993-1357ffb497e8",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
@@ -19,7 +20,8 @@
                     "id": "9674a281-123d-4d53-a6be-ba00c1e42783",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -27,7 +29,8 @@
                     "id": "89426aae-efc7-4f28-9227-01da12db97e7",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reload",
@@ -35,7 +38,8 @@
                     "id": "1dde61b3-4da9-4671-930d-855065e2ec3b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Shoot",
@@ -43,7 +47,8 @@
                     "id": "bbbc1622-10ac-4a4c-85d2-cb40a75b90b5",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Aim",
@@ -51,7 +56,8 @@
                     "id": "1228b1de-3231-4359-abcc-d4e48b8293a5",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Sprint",
@@ -59,7 +65,8 @@
                     "id": "90f9a754-0c39-44d5-a35f-d2b5c157d024",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pause",
@@ -67,7 +74,8 @@
                     "id": "9d34ff33-1412-4514-a0ab-9c7b2dac8f2c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LookX",
@@ -75,7 +83,8 @@
                     "id": "84b9d4c8-c840-4923-8d81-7a68c3e14c7b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LookY",
@@ -83,7 +92,8 @@
                     "id": "f27b1d17-2d6d-4439-97e3-e13b5145c47e",
                     "expectedControlType": "",
                     "processors": "Invert",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "SwitchWeapon",
@@ -91,7 +101,8 @@
                     "id": "4ef0d66c-8d86-49db-a507-b6d3459eb1fb",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
